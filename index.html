@@ -1,63 +1,698 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>プロフィールと個人業績</title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iRecipi</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="recommendationData.js"></script> 
+  <script src="recipesData.js"></script>
+  <script src="main.js"></script>
+
+  <script>
+    window.recipesData = [
+  {
+    "title": "豆腐ハンバーグ",
+    "description": "ヘルシーでふんわり食感の豆腐入りハンバーグです。",
+    "image": "sample_image.jpg",
+    "time": 30,
+    "difficulty": 2,
+    "ingredients": [
+      "木綿豆腐 150g",
+      "合いびき肉 150g",
+      "玉ねぎ（みじん切り） 1/2個",
+      "パン粉 大さじ3",
+      "卵 1個",
+      "塩・こしょう 少々",
+      "サラダ油 小さじ2",
+      "お好みのソース 適量"
+    ],
+    "steps": [
+      "豆腐はキッチンペーパーで包み、重しをのせて10分ほど水切りする。",
+      "玉ねぎをみじん切りにし、中火で5分ほど炒めて冷ましておく。",
+      "ボウルにひき肉、豆腐、玉ねぎ、パン粉、卵、塩・こしょうを入れてよくこねる。",
+      "2等分して丸く成形し、中央を少しくぼませる。",
+      "フライパンに油を熱し、中火で片面3分ずつ焼く。",
+      "弱火にしてフタをし、5分蒸し焼きにする。",
+      "皿に盛り、お好みのソースをかけて完成。"
+    ]
+  },
+  {
+    "title": "トマトのカレーライス",
+    "description": "トマトの酸味が引き立つ、さっぱりとした夏向けカレー。",
+    "image": "sample_image.jpg",
+    "time": 40,
+    "difficulty": 2,
+    "ingredients": [
+      "トマト 2個（約300g）",
+      "玉ねぎ 1個",
+      "鶏もも肉 200g",
+      "カレールウ 2かけ",
+      "水 400ml",
+      "サラダ油 大さじ1",
+      "ごはん 茶碗2杯"
+    ],
+    "steps": [
+      "トマトは湯むきしてざく切りに、玉ねぎは薄切りにする。",
+      "鶏もも肉は一口大に切り、塩こしょうを軽くふる。",
+      "鍋に油を熱し、玉ねぎを中火で10分炒めて甘みを出す。",
+      "鶏肉を加え、表面が白くなるまで3分炒める。",
+      "トマトと水を加えて沸騰させ、弱火で10分煮込む。",
+      "一度火を止めてルウを溶かし、さらに弱火で5分煮る。",
+      "ごはんと一緒に盛りつけて完成。"
+    ]
+  },
+  {
+    "title": "チーズリゾット",
+    "description": "牛乳とチーズで仕上げる、濃厚でクリーミーな洋風リゾット。",
+    "image": "sample_image.jpg",
+    "time": 25,
+    "difficulty": 2,
+    "ingredients": [
+      "米 100g",
+      "玉ねぎ（みじん切り） 1/4個",
+      "牛乳 200ml",
+      "水 300ml",
+      "コンソメ 小さじ1",
+      "ピザ用チーズ 50g",
+      "バター 10g",
+      "塩・こしょう 少々"
+    ],
+    "steps": [
+      "フライパンにバターを入れて中火で熱し、玉ねぎを3分炒める。",
+      "洗っていない米を加え、さらに2分炒めて油をなじませる。",
+      "水とコンソメを加え、弱火で15分ほど煮る（途中混ぜる）。",
+      "牛乳を加え、とろみがつくまでさらに5分煮る。",
+      "チーズを加えて溶かし、塩・こしょうで味を整える。",
+      "器に盛り、お好みで黒こしょうをふって完成。"
+    ]
+  }
+];
+
+  </script>
+  
 </head>
 <body>
-    <header>
-        <h1>私のホームページ</h1>
-        <nav>
-            <ul>
-                <li><a href="#profile">プロフィール</a></li>
-                <li><a href="#research">研究業績</a></li>
-                <li><a href="#awards">受賞歴</a></li>
-            </ul>
-        </nav>
-    </header>
 
-    <main>
-        <section id="profile" class="block">
-            <h2>プロフィール</h2>
-            <p><strong>名前：</strong>山田 太郎</p>
-            <p><strong>出身地：</strong>東京都</p>
-            <p><strong>趣味：</strong>読書、旅行、写真撮影</p>
-            <p><strong>経歴：</strong>東京大学工学部卒業、ABC研究所勤務</p>
-        </section>
+<!-- ナビゲーション / デバッグ用 -->
+  <nav style="padding: 1rem;">
+    デバック用：
+    <button onclick="showView('view-search')">検索画面</button>
+    <button onclick="showView('view-loading')">AI待ち</button>
+    <button onclick="showView('view-result')">検索結果</button>
+    <button onclick="showView('view-detail')">レシピ詳細</button>
+  </nav>
 
-        <section id="research" class="block">
-            <h2>研究業績</h2>
-            <h3>査読付き論文</h3>
-            <ul>
-                <li>Yamada, T., Suzuki, K. (2023). Advanced Robotics. <strong>Journal of Robotics Research</strong>, 45(3), 123-145.</li>
-                <li><strong>Yamada, T.</strong>, Tanaka, H. (2022). Machine Learning Techniques. <strong>International Journal of AI</strong>, 10(1), 98-110.</li>
-            </ul>
-            <h3>国際学会</h3>
-            <ul>
-                <li>Yamada, T. (2023). Presentation on AI. <strong>ICML 2023</strong>, Paris, France.</li>
-                <li><strong>Yamada, T.</strong> (2022). Deep Learning Applications. <strong>NIPS 2022</strong>, Barcelona, Spain.</li>
-            </ul>
-            <h3>国内学会</h3>
-            <ul>
-                <li>Yamada, T. (2023). Robotics Innovations. <strong>日本ロボティクス学会</strong>, 東京, 日本.</li>
-                <li><strong>山田 太郎</strong> (2022). 機械学習の応用. <strong>日本AI学会</strong>, 大阪, 日本.</li>
-            </ul>
-        </section>
+  <!-- ヘッダー -->
+<header class="header">
+  <div class="header-left">
+    <img src="logo.jpg" alt="iRecipiロゴ" class="logo-image" />
+  </div>
+  <div class="menu-button">≡</div>
+</header>
 
-        <section id="awards" class="block">
-            <h2>受賞歴</h2>
-            <ul>
-                <li>2023年 - 優秀研究者賞 - 日本ロボティクス学会</li>
-                <li>2022年 - 最優秀論文賞 - 日本AI学会</li>
-            </ul>
-        </section>
-    </main>
+<section id="view-search">
+  <!-- 簡単検索 -->
+   <h2 class="section-header">今日の献立カンタン検索</h2>
+   <section class="section quick-search">
+    
+    <div class="search-area">
+    <div class="search-box">
+      <input type="text" class="search-input" placeholder="食べ物・料理を入力">
+      <button class="search-button">検索</button>
+    </div>
+    </div>
+    <button class="detail-search-link">詳細に検索</button>
+  </section>
 
-    <footer>
-        <p>&copy; 2024 山田 太郎</p>
-    </footer>
+  <!-- おすすめセクション -->
+  <section class="section recommendation">
+
+    <div class="recommendation-content">
+        <div class="recommendation-date">
+            <h3>today</h3>
+        </div>
+      <p>
+        no data
+      </p>
+      <button>もっとみる</button>
+    </div>
+
+    <div class="recommendation-image">
+        <img src="" alt="" />
+    </div>
+
+  </section>
+
+  <!-- 詳細検索 -->
+    <h2 class="section-header">詳細検索</h2>
+  <section class="section advanced-search">
+    
+    <div class="search-area">
+        <div class="search-condition">
+      <label for="time-range">調理時間の目安</label>
+      <input type="range" id="time-range" name="time-range">
+
+      <label for="difficulty-range">調理難易度の目安</label>
+      <input type="range" id="difficulty-range" name="difficulty-range">
+
+      <label>
+        <input type="checkbox" name="tools-consideration">
+        調理器具の考慮
+      </label>
+
+      <label>
+        <input type="checkbox" name="taste-consideration">
+        味の好みの考慮
+      </label>
+      </div>
+    <div class="search-box">
+        <input type="text" class="search-input" placeholder="食べ物・料理を入力">
+        <button class="search-button">検索</button>
+    </div>
+    </div>
+  </section>
+
+  </section>
+
+    <!-- AI解答待ち画面 -->
+    <section id="view-loading" class="view" style="display: none;">
+    <div class="loading-container">
+        <div class="spinner"></div>
+        <div class="loading-text" aria-live="polite">
+        <h2>検索中...</h2>
+        <p>AIが回答を生成しています。しばらくお待ちください。</p>
+        <button onclick="responseAPI()">デバック用：次に進む</button>
+        </div>
+    </div>
+    </section>
+
+
+  <!-- 検索結果画面 -->
+<section id="view-result" class="view" style="display: none;">
+  <h2>検索結果</h2>
+  <div id="result-list" class="result-list">
+    <!-- カードがここにJSで挿入されます -->
+  </div>
+</section>
+
+
+  <!-- レシピ詳細画面 -->
+  <section id="view-detail" style="display: none;">
+    <h2>レシピ詳細</h2>
+    <div id="detail-content">詳細をここに表示</div>
+  </section>
+
+  <!-- フッター -->
+  <footer class="footer">
+    &copy; 2025 iRecipi. All rights reserved.
+  </footer>
 </body>
 </html>
 
+
+
+:root {
+  --bg-color: #cec4ba;
+  --section-bg: #ffffff;
+  --accent-color: #eee8d0;
+  --text-color: #000000;
+  --search-color: #ebebeb;
+}
+
+body {
+  margin: 0;
+  font-family: 'Noto Sans JP', sans-serif;
+  background-color: var(--bg-color);
+  color: var(--text-color);
+}
+
+button{
+    background-color: var(--accent-color);
+    border: 1px solid #ccc;
+}
+
+input{
+     border: 1px solid #ccc;
+}
+
+
+
+/* ---------------------------------------- */
+/* 検索画面 */
+/* ---------------------------------------- */
+
+/* ヘッダー */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 1rem;
+  background-color: rgb(255, 255, 255);
+  border-bottom: 1px solid #ddd;
+}
+
+/* ロゴの見た目調整 */
+.logo-image {
+  height: 60px;
+  object-fit: contain;
+}
+
+/* セクション */
+.section {
+  background-color: var(--section-bg);
+margin: 1rem 1rem 3rem 1rem;
+  padding: 1rem;
+}
+
+/* 見出し */
+.section-header {
+  background-color: var(--accent-color);
+  text-align: center;
+  padding: 0.5rem;
+  margin: 0; /* マージン調整して余白はsectionに任せる */
+}
+
+
+/* 検索ボックス */
+.search-area {
+  background: var(--search-color);
+  padding: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 12px;
+}
+
+.search-box {
+  display: flex;
+  width: 100%;
+}
+
+.search-input {
+  flex: 1;
+  border-right: none;
+  border-radius: 12px 0 0 12px;
+}
+
+.search-button {
+  height: 48px;
+  width: 48px;
+  border-left: none;
+  border-radius: 0 12px 12px 0;
+  background-color: var(--accent-color);
+}
+
+.detail-search-link{
+    margin-top: 3rem;
+    display: block;
+    margin-left: auto;
+}
+
+/* おすすめ画像 */
+.recommendation {
+  display: flex;
+  background-color: var(--section-bg);
+  padding: 1rem;
+  gap: 1rem;
+  align-items: stretch;
+}
+
+/* 左：テキストエリア */
+.recommendation-content {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 右：画像エリア */
+.recommendation-image {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.recommendation-image img {
+  width: 100%;
+  max-width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 16px;
+  background-color: #f0f0f0;
+}
+
+/* 詳細検索 親セクション */
+.search-condition {
+  display: flex;
+  flex-direction: column;
+}
+
+/* フッター */
+.footer {
+  text-align: center;
+  padding: 1rem;
+  font-size: 0.8rem;
+  color: #666;
+  background: white;
+  border-top: 1px solid #ddd;
+}
+
+
+/* ---------------------------------------- */
+/* 待ち画面 */
+/* ---------------------------------------- */
+
+/* 全体を中央に配置 */
+.loading-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 60vh;
+  text-align: center;
+}
+
+/* スピナー（CSSのみで作成） */
+.spinner {
+  width: 48px;
+  height: 48px;
+  border: 5px solid #ccc;
+  border-top-color: var(--accent-color, #7ca982);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* テキスト調整 */
+.loading-text h2 {
+  font-size: 1.2rem;
+  margin-bottom: 0.5rem;
+}
+
+
+
+/* ---------------------------------------- */
+/* 検索結果画面 */
+/* ---------------------------------------- */
+
+.result-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 1rem;
+}
+
+.result-card {
+  background-color: #fff;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 1rem;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.result-card:hover {
+  background-color: #f9f9f9;
+}
+
+.result-card h3 {
+  margin: 0 0 0.5rem;
+  font-size: 1.1rem;
+}
+
+.result-card p {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #555;
+}
+
+
+
+/* ---------------------------------------- */
+/* 詳細画面 */
+/* ---------------------------------------- */
+
+
+
+
+
+
+
+const views = ["view-search", "view-loading", "view-result", "view-detail"];
+
+function showView(viewId) {
+  views.forEach(id => {
+    const el = document.getElementById(id);
+    if (el) {
+      el.style.display = (id === viewId) ? "block" : "none";
+    }
+  });
+}
+
+
+const AppState = {
+  recipes: [],
+  selectedRecipe: null
+};
+
+
+// function loadRecipes() {
+//   return fetch('recipes.json')
+//     .then(res => {
+//       if (!res.ok) throw new Error("読み込み失敗");
+//       return res.json();
+//     });
+// }
+
+// fetch の代わりにこれを使う
+function loadRecipes() {
+  return Promise.resolve(window.recipesData);
+}
+
+function renderResults(recipes) {
+  const container = document.getElementById("result-list");
+  container.innerHTML = ""; // 既存の内容をクリア
+
+  recipes.forEach((recipe, index) => {
+    const card = document.createElement("div");
+    card.className = "result-card";
+
+    card.innerHTML = `
+      <h3>${recipe.title}</h3>
+      <p>${recipe.description}</p>
+    `;
+
+    card.addEventListener("click", () => {
+      AppState.selectedRecipe = recipe;
+      showView("view-detail");
+      renderDetail(recipe);
+    });
+
+    container.appendChild(card);
+  });
+}
+
+
+//----------------------------------------------------//
+function requestAPI(keyword) {
+  console.log("検索キーワード:", keyword);  // OK
+  showView("view-loading");
+
+  // 検索中っぽいディレイを入れてから実行（仮AI処理）
+  setTimeout(() => {
+    responseAPI(keyword);
+  }, 3000);
+}
+
+//----------------------------------------------------//
+function responseAPI() {
+  showView("view-result");
+
+  loadRecipes()
+    .then(recipes => {
+      AppState.recipes = recipes;
+      renderResults(recipes);
+    })
+    .catch(err => {
+      console.error("レシピ読み込みエラー:", err);
+    });
+}
+
+//----------------------------------------------------//
+
+
+
+
+
+
+// 画面を読み込んだ時の初回の処理
+document.addEventListener("DOMContentLoaded", () => {
+
+    // はじめは検索画面を表示
+    showView("view-search");
+
+    // 今日のおすすめを読み込む
+    // fetch('./recommendation.json')
+    //     .then(response => {
+    //     if (!response.ok) throw new Error("データの読み込みに失敗しました");
+    //     return response.json();
+    //     })
+    //     .then(data => {
+    //     const dateHeading = document.querySelector('.recommendation-date h3');
+    //     const description = document.querySelector('.recommendation-content p');
+    //     const image = document.querySelector('.recommendation-image img');
+
+    //     if (dateHeading) {
+    //         dateHeading.textContent = `${data.date}のおすすめ`;
+    //     }
+    //     if (description) {
+    //         description.textContent = data.description;
+    //     }
+    //     if (image) {
+    //         image.src = data.image;
+    //         image.alt = `${data.title}の画像`;
+    //     }
+    //     })
+    //     .catch(error => {
+    //     console.error("おすすめセクションの読み込みエラー:", error);
+    //     });
+
+    const data = window.recommendationData;
+
+    const dateHeading = document.querySelector('.recommendation-date h3');
+    const description = document.querySelector('.recommendation-content p');
+    const image = document.querySelector('.recommendation-image img');
+
+    if (dateHeading) {
+        dateHeading.textContent = `${data.date}のおすすめ`;
+    }
+    if (description) {
+        description.textContent = data.description;
+    }
+    if (image) {
+        image.src = data.image;
+        image.alt = `${data.title}の画像`;
+    }
+
+
+
+
+//----------------------------------------------------//
+    const searchBtn = document.querySelector(".search-button");
+    const input = document.querySelector(".search-input");
+
+    searchBtn.addEventListener("click", () => {
+        const keyword = input.value.trim();
+        requestAPI(keyword);
+     });  
+//----------------------------------------------------//
+
+});
+
+
+ {
+  "date": "6月23日",
+  "title": "冷やっこ",
+  "description": "梅雨の曇りや雨、湿度高くて食が進まない方におすすめです。さっぱりしていて栄養豊富な冷やっこや、旬の魚を活かしたおかずがおすすめです。",
+  "image": "sample.png"
+}
+
+
+
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iRecipi</title>
+  <link rel="stylesheet" href="style.css" />
+  <script src="recommendationData.js"></script> 
+  <script src="recipesData.js"></script>
+  <script src="main.js"></script>
+
+  <script>
+    window.recipesData = [
+  {
+    "title": "豆腐ハンバーグ",
+    "description": "ヘルシーでふんわり食感の豆腐入りハンバーグです。",
+    "image": "sample_image.jpg",
+    "time": 30,
+    "difficulty": 2,
+    "ingredients": [
+      "木綿豆腐 150g",
+      "合いびき肉 150g",
+      "玉ねぎ（みじん切り） 1/2個",
+      "パン粉 大さじ3",
+      "卵 1個",
+      "塩・こしょう 少々",
+      "サラダ油 小さじ2",
+      "お好みのソース 適量"
+    ],
+    "steps": [
+      "豆腐はキッチンペーパーで包み、重しをのせて10分ほど水切りする。",
+      "玉ねぎをみじん切りにし、中火で5分ほど炒めて冷ましておく。",
+      "ボウルにひき肉、豆腐、玉ねぎ、パン粉、卵、塩・こしょうを入れてよくこねる。",
+      "2等分して丸く成形し、中央を少しくぼませる。",
+      "フライパンに油を熱し、中火で片面3分ずつ焼く。",
+      "弱火にしてフタをし、5分蒸し焼きにする。",
+      "皿に盛り、お好みのソースをかけて完成。"
+    ]
+  },
+  {
+    "title": "トマトのカレーライス",
+    "description": "トマトの酸味が引き立つ、さっぱりとした夏向けカレー。",
+    "image": "sample_image.jpg",
+    "time": 40,
+    "difficulty": 2,
+    "ingredients": [
+      "トマト 2個（約300g）",
+      "玉ねぎ 1個",
+      "鶏もも肉 200g",
+      "カレールウ 2かけ",
+      "水 400ml",
+      "サラダ油 大さじ1",
+      "ごはん 茶碗2杯"
+    ],
+    "steps": [
+      "トマトは湯むきしてざく切りに、玉ねぎは薄切りにする。",
+      "鶏もも肉は一口大に切り、塩こしょうを軽くふる。",
+      "鍋に油を熱し、玉ねぎを中火で10分炒めて甘みを出す。",
+      "鶏肉を加え、表面が白くなるまで3分炒める。",
+      "トマトと水を加えて沸騰させ、弱火で10分煮込む。",
+      "一度火を止めてルウを溶かし、さらに弱火で5分煮る。",
+      "ごはんと一緒に盛りつけて完成。"
+    ]
+  },
+  {
+    "title": "チーズリゾット",
+    "description": "牛乳とチーズで仕上げる、濃厚でクリーミーな洋風リゾット。",
+    "image": "sample_image.jpg",
+    "time": 25,
+    "difficulty": 2,
+    "ingredients": [
+      "米 100g",
+      "玉ねぎ（みじん切り） 1/4個",
+      "牛乳 200ml",
+      "水 300ml",
+      "コンソメ 小さじ1",
+      "ピザ用チーズ 50g",
+      "バター 10g",
+      "塩・こしょう 少々"
+    ],
+    "steps": [
+      "フライパンにバターを入れて中火で熱し、玉ねぎを3分炒める。",
+      "洗っていない米を加え、さらに2分炒めて油をなじませる。",
+      "水とコンソメを加え、弱火で15分ほど煮る（途中混ぜる）。",
+      "牛乳を加え、とろみがつくまでさらに5分煮る。",
+      "チーズを加えて溶かし、塩・こしょうで味を整える。",
+      "器に盛り、お好みで黒こしょうをふって完成。"
+    ]
+  }
+];
+
+  </script>
