@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>iRecipi</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap">
+  <script src="main.js"></script>
+  <script>
+    window.recommendationData = {
+    "date": "6月23日",
+    "title": "冷やっこ",
+    "description": "梅雨の曇りや雨、湿度高くて食が進まない方におすすめです。さっぱりしていて栄養豊富な冷やっこや、旬の魚を活かしたおかずがおすすめです。",
+    "image": "sample.png"
+    };
+  </script>
+  
+</head>
+<body>
+
+
+  <!-- ヘッダー -->
+<header class="header">
+  <div class="header-left">
+    <img src="logo.jpg" alt="iRecipiロゴ" class="logo-image" />
+  </div>
+  <div class="menu-button"></div>
+</header>
+
+<section id="view-search">
+  <!-- 簡単検索 -->
+   <h2 class="section-header">今日の献立カンタン検索</h2>
+   <section class="section quick-search">
+    
+    <div class="search-area">
+    <div class="search-box">
+      <input type="text" class="search-input" placeholder="食べ物・料理を入力">
+      <button class="search-button">検索</button>
+    </div>
+    </div>
+    <button class="detail-search-link">詳細に検索</button>
+  </section>
+
+  <!-- おすすめセクション -->
+  <section class="section">
+  <div class="recommendation">
+    <div class="recommendation-area">
+    <div class="recommendation-content">
+        <div class="recommendation-date">
+            <h3 >today</h3>
+        </div>
+      <p>No data</p>
+    </div>
+
+    <div class="recommendation-image">
+        <img src="" alt="" />
+    </div>
+    </div>
+    <button>もっとみる</button>
+  </section>
+
+  <!-- 詳細検索 -->
+    <h2 class="section-header">詳細検索</h2>
+  <section class="section advanced-search">
+    
+    <div class="search-area">
+        <div class="search-condition">
+      <label for="time-range">調理時間の目安</label>
+      <input type="range" id="time-range" name="time-range">
+
+      <label for="difficulty-range">調理難易度の目安</label>
+      <input type="range" id="difficulty-range" name="difficulty-range">
+
+      <label>
+        <input type="checkbox" name="tools-consideration">
+        調理器具の考慮
+      </label>
+
+      <label>
+        <input type="checkbox" name="taste-consideration">
+        味の好みの考慮
+      </label>
+      </div>
+    <div class="search-box">
+        <input type="text" class="search-input" placeholder="食べ物・料理を入力">
+        <button class="search-button">検索</button>
+    </div>
+    </div>
+  </section>
+
+  <!-- フッターアイコンセクション -->
+<section class="footer-icons">
+
+</section>
+
+  
+  <!-- フッター -->
+  <footer class="footer">
+    &copy; 2025 iRecipi. All rights reserved.
+  </footer>
+</body>
+</html>
