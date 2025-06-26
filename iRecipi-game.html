@@ -6,20 +6,78 @@
   <title>iRecipi</title>
   <link rel="stylesheet" href="style.css" />
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Press+Start+2P&display=swap">
-  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap">
-  <script src="main.js"></script>
-  <script>
-    window.recommendationData = {
-    "date": "6月23日",
-    "title": "冷やっこ",
-    "description": "梅雨の曇りや雨、湿度高くて食が進まない方におすすめです。さっぱりしていて栄養豊富な冷やっこや、旬の魚を活かしたおかずがおすすめです。",
-    "image": "sample.png"
-    };
-  </script>
-  
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DotGothic16&display=swap">  
 </head>
 <body>
 
+<!-- ーーーーーーーーーーーーーーーーーー -->
+ <!-- 下部固定のアイコン -->
+<div id="fixed-icon">
+  <img id="open-modal" src="mark_question_yellow.png" style="width: 60px; height: auto;">
+  <img id="scroll-to-top" src="yajirushi_left.png" style="transform: rotate(90deg); width: 60px; height: auto;">
+</div>
+
+<!-- モーダル -->
+<div id="modal" class="modal-hidden">
+  <div class="modal-content">
+
+    <!-- 常時表示の × -->
+    <img src="mark_batsu.png" id="close-icon">
+
+<h2>つかいかた</h2>
+    <!-- Step表示 -->
+<div class="step-item">
+  <div class="step-content">
+    <p>献立を決めるお手伝いをするアプリです！<br>
+    どんな食事がいいのか、自由にコンセプトを入力しましょう。</p>
+    <p>
+      イタリアン？ 中華？ デザート系？
+    </p>
+    <p>
+      高タンパク？ 低カロリー？
+    </p>
+    <p>使いたい <strong>食材</strong> があれば一緒に入力してみましょう！</p>
+  </div>
+  <div class="step-images">
+    <img src="mark_question_yellow.png" alt="仮画像1">
+    <img src="mark_question_yellow.png" alt="仮画像2">
+    <img src="mark_question_yellow.png" alt="仮画像3">
+  </div>
+</div>
+
+<div class="step-item">
+  <div class="step-content">
+    <p>条件に合った献立を3つ、アプリが提案します！<br>
+    気になるレシピを選んで詳細をチェック！</p>
+  </div>
+    <div class="step-images">
+    <img src="mark_question_yellow.png" alt="仮画像1">
+    <img src="mark_question_yellow.png" alt="仮画像2">
+    <img src="mark_question_yellow.png" alt="仮画像3">
+  </div>
+</div>
+
+<div class="step-item">
+  <div class="step-content">
+    <p>もっとカスタマイズしたい？<br>
+    詳細検索機能も用意しています。ページ下部から使ってみてください
+    </p>
+  <h2>Let's iRecipe</h2>
+  </div>
+    <div class="step-images">
+    <img src="mark_question_yellow.png" alt="仮画像1">
+    <img src="mark_question_yellow.png" alt="仮画像2">
+    <img src="mark_question_yellow.png" alt="仮画像3">
+  </div>
+</div>
+
+
+    <!-- 最後に出る閉じるボタン -->
+    <button id="final-close" class="hidden">閉じる</button>
+  </div>
+</div>
+
+<!-- ーーーーーーーーーーーーーーーーーー -->
 
   <!-- ヘッダー -->
 <header class="header">
@@ -28,6 +86,10 @@
   </div>
   <div class="menu-button"></div>
 </header>
+
+<div id="login-info">
+  login-info
+</div>
 
 <section id="view-search">
   <!-- 簡単検索 -->
@@ -100,5 +162,68 @@
   <footer class="footer">
     &copy; 2025 iRecipi. All rights reserved.
   </footer>
+
+<script src="main.js"></script>
+
+document.addEventListener("DOMContentLoaded", () => {
+  const scrollToTop = document.getElementById("scroll-to-top");
+  const openModal = document.getElementById("open-modal");
+  const modal = document.getElementById("modal");
+  const closeIcon = document.getElementById("close-icon");
+  const finalClose = document.getElementById("final-close");
+  const stepItems = document.querySelectorAll(".step-item");
+
+  // トップへスクロール
+  if (scrollToTop) {
+    scrollToTop.addEventListener("click", () => {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    });
+  }
+
+  // モーダル表示
+  openModal?.addEventListener("click", () => {
+    modal.classList.remove("modal-hidden");
+    document.body.classList.add("modal-open");
+    showStepsSequentially();
+  });
+
+  // モーダル閉じる
+  function closeModal() {
+    modal.classList.add("modal-hidden");
+    document.body.classList.remove("modal-open");
+  }
+
+  closeIcon?.addEventListener("click", closeModal);
+  finalClose?.addEventListener("click", closeModal);
+
+  modal?.addEventListener("click", (e) => {
+    if (e.target === modal) closeModal();
+  });
+
+  // Step1〜3の順次表示 → 最後に「閉じる」ボタン
+  function showStepsSequentially() {
+    // 初期化
+    stepItems.forEach((item) => {
+      item.classList.remove("step-show");
+    });
+    finalClose.classList.add("hidden");
+    finalClose.classList.remove("step-show");
+
+    // 順番に表示
+    stepItems.forEach((item, index) => {
+      setTimeout(() => {
+        item.classList.add("step-show");
+      }, index * 800);
+    });
+
+    // 最後に「閉じる」ボタン表示
+    setTimeout(() => {
+      finalClose.classList.remove("hidden");
+      finalClose.classList.add("step-show");
+    }, stepItems.length * 800 + 300);
+  }
+});
+
+
 </body>
 </html>

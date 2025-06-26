@@ -1,0 +1,151 @@
+
+
+<ol class="styled-counter">
+  <li>手を洗う</li>
+  <li>材料を切る</li>
+  <li>炒める</li>
+</ol>
+
+<p>
+<strong>６</strong>月<strong>２５</strong>日<br>
+おすすめの食材は<strong>梅</strong>
+</p>
+<p class="dot-wait">目安：あと <strong>１０</strong> 秒です<span class="dot-anim"></span></p>
+
+<p>目安：あと <strong>１０</strong> 秒です <span id="dot-spinner">.</span></p>
+<script>
+  const dots = ["", ".", "..", "...","....",".....","......"];
+  let d = 0;
+  setInterval(() => {
+    document.getElementById("dot-spinner").textContent = dots[d++ % dots.length];
+  }, 400);
+</script>
+
+
+<div class="dialog-box fade-in">
+  <p>これは <strong>ダイアログボックス</strong> です。<br>
+  レトロゲームの説明文やヒントなどに最適です。</p>
+</div>
+
+<br>
+
+<div class="speech-box fade-in">
+  <p>▶ こんにちは！<br>
+  今日のおすすめは「<strong>焼きナス</strong>」だよ！</p>
+</div>
+
+<br>
+
+<button class="pixel-btn fade-in">スタート</button>
+
+
+
+<style>
+
+  .dot-anim::after {
+  content: "";
+  animation: dotBlink 1s steps(3, end) infinite;
+  display: inline-block;
+  width: 1.5em;
+  text-align: left;
+}
+
+@keyframes dotBlink {
+  0%   { content: "";    }
+  33%  { content: ".";   }
+  66%  { content: "..";  }
+  100% { content: "..."; }
+}
+
+p {
+  font-size: 16px;
+  line-height: 1.6;
+  color: #333;
+  margin: 1rem 0;
+}
+
+p strong {
+  font-size: 24px;         /* 通常より大きく */
+  font-weight: bold;
+}
+
+
+
+ol.styled-counter {
+  counter-reset: step;
+  list-style: none;
+  padding-left: 0;
+}
+
+ol.styled-counter li {
+  counter-increment: step;
+  position: relative;
+  padding-left: 2rem;
+  margin-bottom: 1rem;
+}
+
+ol.styled-counter li::before {
+  content: counter(step);
+  background-color: #f0a500;
+  color: white;
+  font-weight: bold;
+  width: 1.5rem;
+  height: 1.5rem;
+  display: inline-flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  position: absolute;
+  left: 0;
+  top: 0.1rem;
+}
+
+
+.dialog-box {
+  border: 4px double black;
+  background: #fff;
+  padding: 1rem;
+  box-shadow: 2px 2px 0 #000;
+  font-family: 'DotGothic16', monospace;
+}
+
+.speech-box {
+  background-color: #f0d25c;
+  border: 3px solid #222;
+  padding: 1rem;
+  font-size: 14px;
+  font-family: 'DotGothic16';
+  box-shadow: 2px 2px 0 #000;
+  width: fit-content;
+}
+
+button.pixel-btn {
+  font-family: 'DotGothic16', monospace;
+  background-color: #f0d25c;
+  border: 3px solid #000;
+  box-shadow: 2px 2px 0 #000;
+  padding: 0.5rem 1rem;
+  cursor: pointer;
+  transition: all 0.1s ease-in-out;
+}
+
+button.pixel-btn:active {
+  transform: translate(2px, 2px);
+  box-shadow: none;
+}
+
+.fade-in {
+  opacity: 0;
+  transform: translateY(10px);
+  animation: fadeIn 0.4s ease forwards;
+}
+
+@keyframes fadeIn {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+</style>
